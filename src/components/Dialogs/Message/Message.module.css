@@ -1,0 +1,7 @@
+.mess {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding-top: 33px;
+    text-align: center;
+    justify-content: space-between;
+}

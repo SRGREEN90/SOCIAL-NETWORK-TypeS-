@@ -1,0 +1,14 @@
+.names {
+    color: seagreen;
+    text-decoration: none;
+}
+
+.names img {
+    width: 50px;
+    border-radius: 50px;
+}
+.name {
+    text-decoration: none;
+    color: crimson;
+}
+

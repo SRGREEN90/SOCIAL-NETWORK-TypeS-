@@ -1,0 +1,27 @@
+
+.nav {
+    grid-area: n;
+    background-color: seagreen;
+    padding: 20px;
+}
+
+.item a {
+    color: azure;
+    text-decoration: none;
+}
+
+.item a.activeLink {
+    color: yellow;
+}
+.nameF {
+    font-family: "MS Gothic";
+    font-size: x-small;
+    color: greenyellow;
+}
+
+
+.nameF img {
+    width: 30px;
+    border-radius: 30px;
+    background-color: #ffffff;
+}
