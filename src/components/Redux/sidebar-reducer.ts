@@ -1,6 +1,9 @@
 import React from "react";
 import {sidebarType, StateType} from "../../index";
 //=========================
+
+export const ADD_FRIENDS = 'ADD_FRIENDS'
+
 let initialState = {
     friends: [
                 {id: 1, name: 'Andrew'},
@@ -18,9 +21,25 @@ type FriendsPropsType = {
 }
 type initialStateType = typeof initialState
 
-export const sidebarReducer = (state = initialState, action: any): initialStateType => {
+export const sidebarReducer = (state = initialState, action: mainPostType): initialStateType => {
+    switch (action.type) {
+        case ADD_FRIENDS:
+            let newFriend = {id: 7, name: 'Serega'}
+            return {
+                ...state,
+                friends: [...state.friends, newFriend]
+            }
+        default:
+            return state
+    }
 
-    return state
+
 }
+
+
+type mainPostType = addFriendActionCreatorType
+type addFriendActionCreatorType = ReturnType<typeof addFriendActionCreator>
+
+export const addFriendActionCreator = () => ({type: 'ADD_FRIENDS'})
 
 export default sidebarReducer

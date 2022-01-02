@@ -2,11 +2,11 @@ import React from 'react'
 import Friend from "./Friend";
 
 type appStateFriendsTypeProps = {
-    appState: FriendsType
-}
-type FriendsType = {
     friends: Array<FriendsPropsType>
 }
+// type FriendsType = {
+//     friends: Array<FriendsPropsType>
+// }
 type FriendsPropsType = {
     name: string
     id: number
@@ -14,7 +14,7 @@ type FriendsPropsType = {
 
 const Friends: React.FC<appStateFriendsTypeProps> = (props) => {
 
-    let friendsElements = props.appState.friends.map(f => <Friend key={f.id} name={f.name}/>)
+    let friendsElements = props.friends.map(f => <Friend key={f.id} name={f.name}/>)
 
     return (
         <div>
