@@ -14,7 +14,7 @@ import {ActionType} from "./index";
 import {ReduxStateType, ReduxStoreType} from "./components/Redux/redux-store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
-//сделано 47 выпуска
+//сделано 47 выпусков
 
 type AppType = {
     // state: ReduxStateType

@@ -11,6 +11,7 @@ let rootReducer = combineReducers({
 
 let store = createStore(rootReducer)
 
+
 export type ReduxStoreType = typeof store
 export type ReduxStateType = ReturnType<typeof rootReducer>
 export type AppDispatch = typeof store.dispatch
