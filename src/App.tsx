@@ -9,8 +9,10 @@ import Music from './components/Music/Music';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import MyFriendsContainer from "./components/Navbar/Friends/FriendsContainer";
+import Users from "./components/Users/Users";
+import UsersContainer from "./components/Users/UsersContainer";
 
-//сделано 48 выпусков
+//сделано 51 выпуск
 
 type AppType = {
     // state: ReduxStateType
@@ -37,6 +39,8 @@ const App: React.FC<AppType> = (props) => {
                         <Route path='/music' element={<Music/>}/>
                         <Route path='/settings' element={<Settings/>}/>
                         <Route path='/friends' element={<MyFriendsContainer />}/>
+                        <Route path='/users' element={<UsersContainer/>}/>
+
                     </Routes>
                 </div>
             </div>

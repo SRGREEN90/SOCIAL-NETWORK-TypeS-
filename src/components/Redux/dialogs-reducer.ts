@@ -1,3 +1,5 @@
+import {addPostActionCreator, updateNewPostTextActionCreator} from "./profile-reducer";
+
 export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
 export const SEND_MESSAGE = 'SEND_MESSAGE'
 //==================================================
@@ -52,16 +54,21 @@ const dialogsReducer = (state = initialState, action: any): initialStateType => 
     }
 }
 
-type updateNewMessageBodyCreatorType = {
-    type: typeof UPDATE_NEW_MESSAGE_BODY
-    newBody: string
-}
-type sendMessageCreatorType = {
-    type: typeof SEND_MESSAGE
-}
+// type updateNewMessageBodyCreatorType = {
+//     type: typeof UPDATE_NEW_MESSAGE_BODY
+//     newBody: string
+// }
+// type sendMessageCreatorType = {
+//     type: typeof SEND_MESSAGE
+// }
 
-export const sendMessageCreator = (): sendMessageCreatorType => ({type: 'SEND_MESSAGE'})
-export const updateNewMessageBodyCreator = (newBody: string): updateNewMessageBodyCreatorType => ({
+type mainMessageType = sendMessageCreatorType | updateNewMessageBodyCreatorType
+
+type sendMessageCreatorType = ReturnType<typeof sendMessageCreator>
+type updateNewMessageBodyCreatorType = ReturnType<typeof updateNewMessageBodyCreator>
+
+export const sendMessageCreator = () => ({type: 'SEND_MESSAGE'})
+export const updateNewMessageBodyCreator = (newBody: string) => ({
     type: 'UPDATE_NEW_MESSAGE_BODY',
     newBody
 })

@@ -42,6 +42,7 @@ const profileReducer = (state = initialState , action: any): initialStateType =>
 }
 
 type mainPostType = addPostActionCreatorType | updateNewPostTextActionCreatorType
+
 type addPostActionCreatorType = ReturnType<typeof addPostActionCreator>
 type updateNewPostTextActionCreatorType = ReturnType<typeof updateNewPostTextActionCreator>
 
