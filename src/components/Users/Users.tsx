@@ -1,6 +1,6 @@
 import React from 'react'
 import s from "./Users.module.css"
-import * as axios from "axios";
+import axios from "axios";
 
 
 export type FullUsersPropsType = {
@@ -23,7 +23,6 @@ export type LocationType = {
 }
 
 type ResponseFullType = {
-    users: ResponseArrayType[]
     data: ResponseDataType
     setUsersContainer: (users: ResponseDataType)=> void
     follow: (userID: string) => void
@@ -53,15 +52,12 @@ type ResponsePhotosType = {
 const Users: React.FC<ResponseFullType> = (props) => {
 
    if(props.users.length === 0) {
-
-    axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response =>{
-        debugger
+    axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        .then(response =>{
         props.setUsersContainer(response.data.items )
     })
 }
-    return (
-
-        <div>
+    return <div>
             {
                 props.users.map(u =>
                     <div key={u.id}>
@@ -87,12 +83,10 @@ const Users: React.FC<ResponseFullType> = (props) => {
                                 <div>{'u.location.sity'}</div>
                             </span>
                         </span>
-
                     </div>
                 )
             }
         </div>
-    )
 }
 export default Users
 
