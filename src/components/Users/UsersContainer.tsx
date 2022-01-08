@@ -2,8 +2,8 @@ import React from 'react'
 import {ReduxStateType} from "../Redux/redux-store";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
-import Users from "./Users";
 import {followAC, setUsersAC, unfollowAC, UserType,} from "../Redux/users-reducer";
+import UsersClass from "./UsersClass";
 
 
 const mapStateToProps = (state: ReduxStateType) => {
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         }
     }
 }
-type MDTP={
+export type MDTP={
     follow:(id:number)=>void
     unfollow:(id:number)=>void
     setUsersContainer:(users:Array<UserType>)=>void
@@ -35,5 +35,5 @@ type MSTP={
 }
 
 export type UserPropsType = MSTP & MDTP
-const MyPostsContainer = connect<MSTP, MDTP, {}, ReduxStateType>(mapStateToProps, mapDispatchToProps)(Users)
+const MyPostsContainer = connect<MSTP, MDTP, {}, ReduxStateType>(mapStateToProps, mapDispatchToProps)(UsersClass)
 export default MyPostsContainer

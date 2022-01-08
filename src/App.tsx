@@ -9,10 +9,9 @@ import Music from './components/Music/Music';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import MyFriendsContainer from "./components/Navbar/Friends/FriendsContainer";
-import Users from "./components/Users/Users";
 import UsersContainer from "./components/Users/UsersContainer";
 
-//сделано 51 выпуск
+//сделано 54 выпуск
 
 type AppType = {
     // state: ReduxStateType

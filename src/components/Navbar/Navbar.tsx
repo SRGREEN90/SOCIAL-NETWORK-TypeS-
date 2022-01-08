@@ -10,6 +10,9 @@ const Navbar = () => {
                 <NavLink to='/profile' className={({isActive}) => (isActive ? s.activeLink : "")}>Profile</NavLink>
             </div>
             <div className={s.item}>
+                <NavLink to='/users' className={({isActive}) => (isActive ? s.activeLink : "")}>Users</NavLink>
+            </div>
+            <div className={s.item}>
                 <NavLink to='/dialogs' className={({isActive}) => (isActive ? s.activeLink : "")}>Messages</NavLink>
             </div>
             <div className={s.item}>
@@ -25,14 +28,19 @@ const Navbar = () => {
                 <NavLink to='/friends' className={({isActive}) => (isActive ? s.activeLink : "")}>Friends</NavLink>
             </div>
             <div className={s.nameF}>
-                <div className={s.else}><img src='https://miro.medium.com/fit/c/1360/1360/2*S4BvCsc_o_KwFCx-gmVTlg.png'/></div>
-                <b>Andrew</b>
-                <div className={s.else}><img src='https://miro.medium.com/fit/c/1360/1360/2*S4BvCsc_o_KwFCx-gmVTlg.png'/></div>
-                <b>Sasha</b>
-                <div className={s.else}><img src='https://www.pngitem.com/pimgs/m/74-749452_business-woman-woman-icon-hd-png-download.png'/></div>
-                <b>Sveta</b>
+                <div className={s.else}>
+                    <img src='https://miro.medium.com/fit/c/1360/1360/2*S4BvCsc_o_KwFCx-gmVTlg.png'/>
+                    <b>Andrew</b>
+                </div>
+                <div className={s.else}>
+                    <img src='https://miro.medium.com/fit/c/1360/1360/2*S4BvCsc_o_KwFCx-gmVTlg.png'/>
+                    <b>Sasha</b>
+                </div>
+                <div className={s.else}>
+                    <img src='https://www.pngitem.com/pimgs/m/74-749452_business-woman-woman-icon-hd-png-download.png'/>
+                    <b>Sveta</b>
+                </div>
             </div>
-
         </nav>
     )
 }
