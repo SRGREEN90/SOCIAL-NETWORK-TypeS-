@@ -36,11 +36,16 @@ let state = props.dialogsPage
                 <div> {messagesElements}</div>
 
                 <div className={s.area}>
-                    <div><textarea onChange={onSendMessageChange}
-                                   value={newMessageBody}
-                                   placeholder={'Write something!'}>)</textarea></div>
                     <div>
-                        <button onClick={onSendMessageClick}>send</button>
+                        <textarea onChange={onSendMessageChange}
+                                   value={newMessageBody}
+                                   placeholder={'Write something!'}>
+                        </textarea>
+                    </div>
+                    <div>
+                        <button onClick={onSendMessageClick}>
+                            send
+                        </button>
                     </div>
                 </div>
             </div>

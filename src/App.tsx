@@ -11,7 +11,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import MyFriendsContainer from "./components/Navbar/Friends/FriendsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 
-//сделано 54 выпуск
+//сделано 55 выпусков
 
 type AppType = {
     // state: ReduxStateType
