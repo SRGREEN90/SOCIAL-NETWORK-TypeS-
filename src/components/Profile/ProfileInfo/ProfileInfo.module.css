@@ -6,8 +6,17 @@
 
 .description {
     padding: 10px;
+
 }
 
 .prof img {
     width: 665px;
+}
+
+.ava{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: flex-start;
+
 }

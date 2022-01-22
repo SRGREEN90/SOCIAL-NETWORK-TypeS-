@@ -4,6 +4,7 @@ import Profile from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
 import {ProfileType, setUserProfile} from "../Redux/profile-reducer";
+import {withRouter} from "react-router-dom";
 
 
 
@@ -38,4 +39,6 @@ export type MDispTP = {
     setUserProfile: (profile: ProfileType)=>void
 }
 
-export default connect<MSTP, MDispTP, {}, ReduxStateType>(mapStateToProps, {setUserProfile})(ProfileContainer)
+let WithUrlDataContainerComponent = withRouter(ProfileContainer)
+
+export default connect<MSTP, MDispTP, {}, ReduxStateType>(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent)

@@ -1,7 +1,7 @@
 import React from 'react';
 import pngHeader from '../../../Images/pngHeader.png';
 import s from './ProfileInfo.module.css'
-import {profileInitialStateType, ProfileType} from "../../Redux/profile-reducer";
+import { ProfileType} from "../../Redux/profile-reducer";
 import {Preloader} from "../../../preloader/Preloader";
 
 type ProfileInfoType = {
@@ -16,15 +16,18 @@ const ProfileInfo = (props: ProfileInfoType) => {
             <div >
                 <img src={pngHeader}/>
             </div>
-            <div className={s.description}>
+        </div>
+        <div className={s.description}>
+            <div className={s.ava}>
                 <img src={props.profile.photos?.large}/>
-                {/*{props.profile.contacts}*/}
-                {/*{props.profile.fullName}*/}
-                {/*{props.profile.aboutMe}*/}
-                {/*{props.profile.userId}*/}
-                {/*{props.profile.lookingForAJob}*/}
-                {/*{props.profile.lookingForAJobDescription}*/}
             </div>
+
+            {/*{props.profile.contacts}*/}
+            {/*{props.profile.fullName}*/}
+            {/*{props.profile.aboutMe}*/}
+            {/*{props.profile.userId}*/}
+            {/*{props.profile.lookingForAJob}*/}
+            {/*{props.profile.lookingForAJobDescription}*/}
         </div>
     </div>
 
