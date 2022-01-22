@@ -3,15 +3,15 @@ import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {ActionType} from "../Redux/state";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {ReduxStoreType} from "../Redux/redux-store";
+
+import {ProfilePropsType} from "./ProfileContainer";
 
 
 
-
-const Profile = () => {
+const Profile = (props: ProfilePropsType) => {
 
     return <div>
-        <ProfileInfo/>
+        <ProfileInfo profile={props.profile}/>
         <MyPostsContainer  />
     </div>
 }
