@@ -22,7 +22,6 @@ type AppType = {
 }
 
 const App: React.FC<AppType> = (props) => {
-
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -32,7 +31,7 @@ const App: React.FC<AppType> = (props) => {
                     <Routes>
                         <Route path='/dialogs' element={<DialogsContainer  />} />
 
-                        <Route path='/profile/:userId' element={<ProfileContainer  />} />
+                        <Route path='/profile/:userId' element={<ProfileContainer params={{userId: 1}}   />} />
 
                         <Route path='/news' element={<News/>}/>
                         <Route path='/music' element={<Music/>}/>

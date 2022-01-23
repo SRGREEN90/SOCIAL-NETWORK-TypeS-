@@ -1,20 +1,29 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {ReduxStateType} from "../Redux/redux-store";
 import Profile from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
 import {ProfileType, setUserProfile} from "../Redux/profile-reducer";
-import {withRouter} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
+export type ProfilePropsType = MSTP & MDispTP
+type UrlParams = {
+    params: {
+        userId: number
+    }
+}
 
-
-class ProfileContainer extends React.Component<ProfilePropsType> {
+class ProfileContainer extends React.Component<ProfilePropsType & UrlParams> {
 
     componentDidMount() {
-    ///    this.props.setToggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        let userId = this.props.params.userId
+        if (!userId) {
+            userId = 2
+        }
+        //this.props.setToggleIsFetching(true)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/ ` + userId)
             .then(response => {
-             //   this.props.setToggleIsFetching(false)
+                //  this.props.setToggleIsFetching(false)
                 this.props.setUserProfile(response.data)
 
             })
@@ -31,14 +40,25 @@ let mapStateToProps = (state: ReduxStateType) => ({
     profile: state.profilePage.profile
 })
 
-export type ProfilePropsType = MSTP & MDispTP
+
 type MSTP = {
     profile: ProfileType
 }
 export type MDispTP = {
-    setUserProfile: (profile: ProfileType)=>void
+    setUserProfile: (profile: ProfileType) => void
 }
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer)
+function withRouter<T extends {}>(WrappedComponent: ComponentType<T>) {
+    return (props: T) => {
+        const params = useParams();
+        return (
+            <WrappedComponent
+                {...props}
+                params={params}
+            />
+        );
+    }
+}
 
-export default connect<MSTP, MDispTP, {}, ReduxStateType>(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent)
+export default connect<MSTP, MDispTP, {}, ReduxStateType>(mapStateToProps, {setUserProfile})(withRouter(ProfileContainer))
+
