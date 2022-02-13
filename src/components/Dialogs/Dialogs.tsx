@@ -5,13 +5,17 @@ import Message from "./Message/Message";
 import {dialogsPageType} from "../../index";
 
 
-type appStatePropsType = {
+
+
+
+export type dialogsPropsType = {
     onSendMessageClickContainer: () => void
     onSendMessageChangeContainer: (text: string) => void
     dialogsPage: dialogsPageType
+    isAuth: boolean
 }
 
-const Dialogs: React.FC<appStatePropsType> = (props) => {
+const Dialogs: React.FC<dialogsPropsType> = (props) => {
 
 let state = props.dialogsPage
     let dialogsElements = state.dialogs.map(d => <DialogsItems key={d.id} name={d.name} id={d.id}/>)
@@ -25,6 +29,8 @@ let state = props.dialogsPage
        let text = e.currentTarget.value
         props.onSendMessageChangeContainer(text)
     }
+
+
 
     return (
         <div className={s.dialogs}>

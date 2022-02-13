@@ -17,6 +17,7 @@
     width: 200px;
     height: 200px;
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    /*justify-content: flex-start;*/
 
 }

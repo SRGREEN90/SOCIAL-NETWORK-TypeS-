@@ -1,3 +1,6 @@
+import {usersAPI} from "../../api/Api";
+import {Dispatch} from "redux";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -120,6 +123,45 @@ export const setUsersContainer = (users: Array<UserType>) => ({type: SET_USERS, 
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalCount} as const)
 export const setToggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setToggleIsFetching(true))
+
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setToggleIsFetching(false))
+            dispatch(setUsersContainer(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
+    }
+}
+
+export const unfollowThunkCreator = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setFollowingInProgress(true, userId))
+
+        usersAPI.unfollow(userId).then(data => {
+            if(data.resultCode === 0){
+                dispatch(unfollow(userId))
+            }
+            dispatch(setFollowingInProgress(false, userId))
+        })
+    }
+}
+export const followThunkCreator = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setFollowingInProgress(true, userId))
+        usersAPI.follow(userId)
+            .then(data => {
+            if(data.resultCode === 0){
+                dispatch(follow(userId))
+            }
+            dispatch(setFollowingInProgress(false, userId))
+        })
+    }
+}
+
+
 
 
 export default usersReducer

@@ -10,8 +10,9 @@ import MyFriendsContainer from "./components/Navbar/Friends/FriendsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
 
-//сделано 60 выпусков
+//сделано 75 выпусков
 
 type AppType = {
     // state: ReduxStateType
@@ -20,6 +21,7 @@ type AppType = {
     // addPost: () => void
     // updateNewPostText: (newLetter: string) => void
 }
+// params={{userId: 1}}  для атрибутов ProfileContainer
 
 const App: React.FC<AppType> = (props) => {
     return (
@@ -31,8 +33,10 @@ const App: React.FC<AppType> = (props) => {
                     <Routes>
                         <Route path='/dialogs' element={<DialogsContainer  />} />
 
-                        <Route path='/profile/:userId' element={<ProfileContainer params={{userId: 1}}   />} />
+                        <Route path='/profile/:userId' element={<ProfileContainer   />} />
+                        <Route path='/profile' element={<ProfileContainer    />} />
 
+                        <Route path='/login' element={<Login/>}/>
                         <Route path='/news' element={<News/>}/>
                         <Route path='/music' element={<Music/>}/>
                         <Route path='/settings' element={<Settings/>}/>

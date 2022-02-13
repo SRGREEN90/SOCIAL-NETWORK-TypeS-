@@ -2,7 +2,7 @@ import React from 'react'
 import s from "./Users.module.css"
 import { UserType} from "../Redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/Api";
+
 
 type UsersPropsType = {
     onPageChanged: (pageNumber: number) => void
@@ -11,9 +11,11 @@ type UsersPropsType = {
     currentPage: number
     users: UserType[]
     follow: (userID: number)=> void
-    unfollow: (userID: number)=> void
+   unfollow: (userID: number)=> void
     followingInProgress: Array<number>
-    setFollowingInProgress: (isFething: boolean, userId: number) => void
+ //   setFollowingInProgress: (isFething: boolean, userId: number) => void
+    unfollowThunkCreator: (id: number) => void
+    followThunkCreator:(id: number)=> void
 }
 
 const Users = (props: UsersPropsType) => {
@@ -53,23 +55,29 @@ const Users = (props: UsersPropsType) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <button disabled={props.followingInProgress.some(id=>id === u.id)} onClick={() => {
-                                    props.setFollowingInProgress(true, u.id)
-                                    usersAPI.unfollow(u.id).then(data => {
-                                            if(data.resultCode === 0){
-                                                props.unfollow(u.id)
-                                            }
-                                        props.setFollowingInProgress(false, u.id)
-                                        })
+                                ? <button disabled={props.followingInProgress.some(id=>id === u.id)}
+                                          onClick={() => {props.unfollowThunkCreator(u.id)
+
+                                    // props.setFollowingInProgress(true, u.id)
+                                    // usersAPI.unfollow(u.id)
+                                    //     .then(data => {
+                                    //         if(data.resultCode === 0){
+                                    //             props.unfollow(u.id)
+                                    //         }
+                                    //     props.setFollowingInProgress(false, u.id)
+                                    //     })
                                 }}>Unfollow</button>
-                                : <button disabled={props.followingInProgress.some(id=>id === u.id)} onClick={() => {
-                                    props.setFollowingInProgress(true, u.id)
-                                    usersAPI.follow(u.id).then(data => {
-                                            if(data.resultCode === 0){
-                                                props.follow(u.id)
-                                            }
-                                        props.setFollowingInProgress(false, u.id)
-                                        })
+                                : <button disabled={props.followingInProgress.some(id=>id === u.id)}
+                                          onClick={() => {props.followThunkCreator(u.id)
+
+                                    // props.setFollowingInProgress(true, u.id)
+                                    // usersAPI.follow(u.id)
+                                    //     .then(data => {
+                                    //         if(data.resultCode === 0){
+                                    //             props.follow(u.id)
+                                    //         }
+                                    //     props.setFollowingInProgress(false, u.id)
+                                    //     })
                                 }}>Follow</button>
                             }
                         </div>
