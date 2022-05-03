@@ -23,9 +23,8 @@ export const usersAPI = {
             .then(response => response.data)
     },
     getUsersProfile(userId = 0) {
-        console.warn('Obsolete method. Please, use profileApi object!')
+      //  console.warn('Obsolete method. Please, use profileApi object!')
         return profileAPI.getUsersProfile(userId)
-
     },
 
 }
@@ -41,8 +40,8 @@ export const profileAPI = {
             .then(response => response.data)
     },
     updateStatus(status: string){
-        return instance.put(`profile/status/`, {status: status})
-            .then(response => response.data)  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>> то, что к нам приходит с сервера
+        return instance.put(`profile/status/`, {status: status}) // отправляем на сервер
+            .then(response => response.data)  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>> приходит с сервера
     },
 }
 
@@ -52,9 +51,9 @@ export const  authApi = {
        return  instance.get(`auth/me`)
     },
     login(email: string, password: string, rememberMe: boolean = false){
-        return  instance.post(`auth/login`, {email, password, rememberMe}) // то, что мы отправляем на сервер
+        return  instance.post(`auth/login`, {email, password, rememberMe}) // отправляем на сервер
     },
     logout(){
-        return  instance.delete(`auth/login`) // то, что мы отправляем на сервер
+        return  instance.delete(`auth/login`) // отправляем на сервер
     }
 }

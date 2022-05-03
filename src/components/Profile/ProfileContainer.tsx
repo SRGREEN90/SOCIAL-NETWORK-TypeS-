@@ -15,7 +15,9 @@ import { History } from 'history';
 export type ProfilePropsType = MSTP & MDispTP
 export type UrlParams = {
     params: {
-        userId: number
+        params: {
+            userId: number
+        }
         history: History
     }
 }
@@ -23,9 +25,11 @@ export type UrlParams = {
 class ProfileContainer extends React.Component<ProfilePropsType & UrlParams> {
 
     componentDidMount() {
-        let userId = this.props.params.userId
+        let userId = this.props.params.params.userId
         if (!userId) {
+
             if (this.props.authorizedUserId) {
+
                 userId = this.props.authorizedUserId
                //  if (!userId) {
                //    this.props.params.history.push('/login')
@@ -37,8 +41,8 @@ class ProfileContainer extends React.Component<ProfilePropsType & UrlParams> {
     }
 
     render() {
-
         return <div>
+
             <Profile  {...this.props}
                       profile={this.props.profile}
                       status={this.props.status}
@@ -80,7 +84,6 @@ function withRouter<T>(WrappedComponent: ComponentType<T>) {
             />
         );
     }
-
     return ComponentWithRouterProp;
 }
 

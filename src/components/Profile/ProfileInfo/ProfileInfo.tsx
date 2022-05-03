@@ -1,10 +1,11 @@
 import React from 'react';
 import pngHeader from '../../../Images/pngHeader.png';
 import s from './ProfileInfo.module.css'
-import {ProfileType, updateUserStatusThunkCreator} from "../../Redux/profile-reducer";
+import {ProfileType} from "../../Redux/profile-reducer";
 import {Preloader} from "../../../preloader/Preloader";
 import login from "../../Login/Login";
 import ProfileStatus from './ProfileStatus';
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 type ProfileInfoType = {
     profile: ProfileType
@@ -23,10 +24,11 @@ const ProfileInfo = (props: ProfileInfoType) => {
         </div>
         <div className={s.description}>
             <div className={s.ava}>
+
                 {
                     <img src={props.profile.photos?.large}/>
                 }
-                 <ProfileStatus status={props.status}
+                 <ProfileStatusWithHooks status={props.status}
                                 updateUserStatusThunkCreator={props.updateUserStatusThunkCreator}
                  />
             </div>

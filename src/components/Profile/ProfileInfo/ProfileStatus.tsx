@@ -1,7 +1,5 @@
 import React, {ChangeEvent} from 'react';
 
-import s from './ProfileInfo.module.css'
-
 type ProfileStatusType = {
     status: string
     updateUserStatusThunkCreator: (status: string) => void
@@ -24,7 +22,7 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
         })
         this.props.updateUserStatusThunkCreator(this.state.status)
     }
-    onstatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
                  status: e.currentTarget.value
         })
@@ -49,7 +47,7 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
             {this.state.editMode &&
                 <div>
                     <input
-                        onChange={this.onstatusChange}
+                        onChange={this.onStatusChange}
                         autoFocus={true}
                         onBlur={this.deActivateEditMode}
                         value={this.state.status}
