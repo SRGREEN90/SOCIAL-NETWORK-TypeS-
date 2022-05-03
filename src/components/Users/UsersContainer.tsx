@@ -10,14 +10,12 @@ import {
 import Users from "./Users";
 import {Preloader} from "../../preloader/Preloader";
 import {compose} from "redux";
-import WithAuthRedirectComponent from "../../hok/WithAuthRedirect";
 import {
     getCurrentPage,
     getFollowingInProgress,
     getIsFetching,
     getPageSize,
-    getTotalUsersCount,
-    getUsers
+    getTotalUsersCount, getUsers,
 } from "../Redux/users-selectors";
 
 
@@ -78,7 +76,7 @@ class UsersContainer extends React.Component<UserPropsType> {
 
 const mapStateToProps = (state: ReduxStateType) => {
     return ({
-        users: getUsers(state),
+         users: getUsers(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
@@ -106,7 +104,6 @@ export type MDTP = {
 export type UserPropsType = MSTP & MDTP
 
 export default compose<React.ComponentType>(
-    //WithAuthRedirectComponent,
     connect<MSTP, MDTP, {}, ReduxStateType>(mapStateToProps, {
         follow,
         unfollow,

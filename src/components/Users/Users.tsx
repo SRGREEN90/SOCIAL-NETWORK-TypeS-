@@ -11,9 +11,8 @@ type UsersPropsType = {
     currentPage: number
     users: UserType[]
     follow: (userID: number)=> void
-   unfollow: (userID: number)=> void
+    unfollow: (userID: number)=> void
     followingInProgress: Array<number>
- //   setFollowingInProgress: (isFething: boolean, userId: number) => void
     unfollowThunkCreator: (id: number) => void
     followThunkCreator:(id: number)=> void
 }
