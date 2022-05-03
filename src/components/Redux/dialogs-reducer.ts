@@ -1,6 +1,3 @@
-import {addPostActionCreator, updateNewPostTextActionCreator} from "./profile-reducer";
-
-export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
 export const SEND_MESSAGE = 'SEND_MESSAGE'
 //==================================================
 
@@ -21,7 +18,7 @@ let initialState = {
         {id: 5, message: 'I like React'},
         {id: 6, message: 'I like TypeScript'}
     ] as Array<messagesType>,
-    newMessageBody: '' as string
+
 }
 type dialogsType = {
     name: string
@@ -33,45 +30,21 @@ type messagesType = {
 }
 export type initialStateType = typeof initialState
 
-const dialogsReducer = (state = initialState, action: any): initialStateType => {
+const dialogsReducer = (state = initialState, action: mainDialogsType): initialStateType => {
 
     switch (action.type) {
-
-        case UPDATE_NEW_MESSAGE_BODY:
+        case SEND_MESSAGE:
+            let body = action.newMessageBody
             return {
                 ...state,
-                newMessageBody: action.newBody || ''
-            }
-
-        case SEND_MESSAGE:
-            let body = state.newMessageBody
-            return {...state,
-                newMessageBody: '',
                 messages: [...state.messages, {id: 7, message: body}]
             }
         default:
             return state
     }
 }
-
-// type updateNewMessageBodyCreatorType = {
-//     type: typeof UPDATE_NEW_MESSAGE_BODY
-//     newBody: string
-// }
-// type sendMessageCreatorType = {
-//     type: typeof SEND_MESSAGE
-// }
-
-type mainMessageType = sendMessageCreatorType | updateNewMessageBodyCreatorType
-
+export type mainDialogsType = sendMessageCreatorType
 type sendMessageCreatorType = ReturnType<typeof sendMessageCreator>
-type updateNewMessageBodyCreatorType = ReturnType<typeof updateNewMessageBodyCreator>
-
-export const sendMessageCreator = () => ({type: 'SEND_MESSAGE'})
-export const updateNewMessageBodyCreator = (newBody: string) => ({
-    type: 'UPDATE_NEW_MESSAGE_BODY',
-    newBody
-})
-
+export const sendMessageCreator = (newMessageBody: string) => ({type: 'SEND_MESSAGE', newMessageBody}as const)
 
 export default dialogsReducer

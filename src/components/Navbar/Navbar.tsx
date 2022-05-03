@@ -1,7 +1,8 @@
 import React from 'react';
 import s from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
-
+import man from '../common/assets/man.png'
+import woman from '../common/assets/woman.png'
 
 const Navbar = () => {
     return (
@@ -29,15 +30,15 @@ const Navbar = () => {
             </div>
             <div className={s.nameF}>
                 <div className={s.else}>
-                    <img src='https://miro.medium.com/fit/c/1360/1360/2*S4BvCsc_o_KwFCx-gmVTlg.png'/>
+                    <img src={man}/>
                     <b>Andrew</b>
                 </div>
                 <div className={s.else}>
-                    <img src='https://miro.medium.com/fit/c/1360/1360/2*S4BvCsc_o_KwFCx-gmVTlg.png'/>
+                    <img src={man} alt='man'/>
                     <b>Sasha</b>
                 </div>
                 <div className={s.else}>
-                    <img src='https://www.pngitem.com/pimgs/m/74-749452_business-woman-woman-icon-hd-png-download.png'/>
+                    <img src={woman} alt='woman'/>
                     <b>Sveta</b>
                 </div>
             </div>

@@ -31,6 +31,7 @@ export const usersAPI = {
 }
 
 export const profileAPI = {
+
     getUsersProfile(userId = 0) {
         return instance.get(`profile/` + userId)
             .then(response => response.data)
@@ -41,7 +42,7 @@ export const profileAPI = {
     },
     updateStatus(status: string){
         return instance.put(`profile/status/`, {status: status})
-            .then(response => response.data)
+            .then(response => response.data)  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>> то, что к нам приходит с сервера
     },
 }
 
@@ -49,5 +50,11 @@ export const profileAPI = {
 export const  authApi = {
     me(){
        return  instance.get(`auth/me`)
+    },
+    login(email: string, password: string, rememberMe: boolean = false){
+        return  instance.post(`auth/login`, {email, password, rememberMe}) // то, что мы отправляем на сервер
+    },
+    logout(){
+        return  instance.delete(`auth/login`) // то, что мы отправляем на сервер
     }
 }

@@ -15,16 +15,17 @@ const ProfileInfo = (props: ProfileInfoType) => {
     if(!props.profile) {
         return <Preloader/>
     }
-    console.log(props.profile)
     return <div>
         <div className={s.prof}>
             <div >
-                <img src={pngHeader}/>
+                <img src={pngHeader} alt='pngHeader'/>
             </div>
         </div>
         <div className={s.description}>
             <div className={s.ava}>
-                { <img src={props.profile.photos?.large}/>}
+                {
+                    <img src={props.profile.photos?.large}/>
+                }
                  <ProfileStatus status={props.status}
                                 updateUserStatusThunkCreator={props.updateUserStatusThunkCreator}
                  />

@@ -7,15 +7,16 @@ import {
     getUserStatusThunkCreator,
     ProfileType, updateUserStatusThunkCreator
 } from "../Redux/profile-reducer";
-import {useParams} from "react-router-dom";
+import {NavigateFunction, Params, useLocation, useNavigate, useParams} from "react-router-dom";
 import WithAuthRedirectComponent from "../../hok/WithAuthRedirect";
 import {compose} from "redux";
-
+import { History } from 'history';
 
 export type ProfilePropsType = MSTP & MDispTP
 export type UrlParams = {
     params: {
         userId: number
+        history: History
     }
 }
 
@@ -24,18 +25,15 @@ class ProfileContainer extends React.Component<ProfilePropsType & UrlParams> {
     componentDidMount() {
         let userId = this.props.params.userId
         if (!userId) {
-            userId = 15574
+            if (this.props.authorizedUserId) {
+                userId = this.props.authorizedUserId
+               //  if (!userId) {
+               //    this.props.params.history.push('/login')
+               //  }
+            }
         }
         this.props.getUsersProfileThunkCreator(userId)
         this.props.getUserStatusThunkCreator(userId)
-
-        //this.props.setToggleIsFetching(true)
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/ ` + userId)
-        // usersAPI.getUsersProfile()
-        //     .then(data => {
-        //         //  this.props.setToggleIsFetching(false)
-        //         this.props.setUserProfile(data.data)
-        //     })
     }
 
     render() {
@@ -53,12 +51,16 @@ class ProfileContainer extends React.Component<ProfilePropsType & UrlParams> {
 
 let mapStateToProps = (state: ReduxStateType) => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.userId,
+    isAuth: state.auth.isAuth
 })
 
 type MSTP = {
     profile: ProfileType,
-    status: string
+    status: string,
+    authorizedUserId: number | null,
+    isAuth: boolean
 }
 export type MDispTP = {
     getUsersProfileThunkCreator: (userId: number) => void
@@ -66,25 +68,27 @@ export type MDispTP = {
     updateUserStatusThunkCreator: (status: string) => void
 }
 
-function withRouter<T extends {}>(WrappedComponent: ComponentType<T>) {
-    return (props: T) => {
+function withRouter<T>(WrappedComponent: ComponentType<T>) {
+    function ComponentWithRouterProp(props: T & WithRouterType) {
         const params = useParams();
+        const navigate = useNavigate();
+        const location = useLocation();
         return (
             <WrappedComponent
                 {...props}
-                params={params}
+                params={{params, navigate, location}}
             />
         );
     }
+
+    return ComponentWithRouterProp;
 }
+
+type WithRouterType = Location & NavigateFunction & Readonly<Params<string>>;
 
 export default compose<React.ComponentType>(
     connect<MSTP, MDispTP, {}, ReduxStateType>(mapStateToProps,
         {getUsersProfileThunkCreator, getUserStatusThunkCreator, updateUserStatusThunkCreator}),
+    WithAuthRedirectComponent,
     withRouter,
-    WithAuthRedirectComponent
 )(ProfileContainer)
-
-//let AuthRedirectComponent = WithAuthRedirectComponent(ProfileContainer)
-//export default connect<MSTP, MDispTP, {}, ReduxStateType>(mapStateToProps, { getUsersProfileThunkCreator})(withRouter(AuthRedirectComponent))
-

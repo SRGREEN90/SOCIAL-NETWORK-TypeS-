@@ -1,53 +1,83 @@
 import {authApi} from "../../api/Api";
 import {Dispatch} from "redux";
+import {AppActionsType, ReduxStateType} from "./redux-store";
+import {ThunkAction} from "redux-thunk";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA'
 //==================================================
 
-let initialState = {
-    id: null as null | number,
-    email: null as null | string,
-    login: null as null | string,
+let initialState: initialStateType = {
+    userId: null,
+    email: null,
+    login: null,
     isAuth: false
 }
+export type initialStateType = {
+    userId: null | number,
+    email: null | string,
+    login: null | string,
+    isAuth: boolean
+}
 
-export type initialStateType = typeof initialState
-
-const authReducer = (state: initialStateType = initialState, action: mainMessageType): initialStateType => {
+const authReducer = (state: initialStateType = initialState, action: mainAuthUserDataType): initialStateType => {
 
     switch (action.type) {
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload
             }
 
         default:
             return state
     }
 }
-type mainMessageType = setAuthUserDataACType
+export type mainAuthUserDataType = setAuthUserDataACType
 type setAuthUserDataACType = ReturnType<typeof setAuthUserDataAC>
 
-export const setAuthUserDataAC = (id: number, email: string, login: string) => (
+export const setAuthUserDataAC = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => (
     {
         type: 'SET_USER_DATA',
-        data: {id, email, login}
+        payload: {id, email, login, isAuth}
     } as const)
 
-export const getAuthUserDataThunkCreator = () => {
+export const getAuthUserDataThunkCreator = () => (dispatch: Dispatch) => {
+   return  authApi.me()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                let {id, login, email} = response.data.data
+                dispatch(setAuthUserDataAC(id, email, login, true))
+            }
+        })
+}
+
+type ThunkType = ThunkAction<void, ReduxStateType, unknown, AppActionsType>
+
+export const LoginThunkCreator = (email: string, password: string, rememberMe: boolean): ThunkType => (dispatch: any) => {
+
+    authApi.login(email, password, rememberMe)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(getAuthUserDataThunkCreator())
+            } else {
+                let message = response.data.message.length > 0 ? response.data.message[0] : 'Some error'
+
+                dispatch(stopSubmit('login', {_error: message}))
+            }
+        })
+}
+
+export const LogoutThunkCreator = () => {
     return (dispatch: Dispatch) => {
-        authApi.me()
+        authApi.logout()
             .then(response => {
-                if(response.data.resultCode === 0) {
-                    let {id, email, login} = response.data.data.login
-                    dispatch(setAuthUserDataAC(id, email, login))
+                if (response.data.resultCode === 0) {
+                    dispatch(setAuthUserDataAC(null, null, null, false))
                 }
             })
     }
 }
-
 
 export default authReducer
 

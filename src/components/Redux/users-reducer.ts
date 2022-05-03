@@ -99,7 +99,7 @@ const usersReducer = (state: initialStateType = initialState, action: mainUsersA
     }
 }
 
-type mainUsersACType = followACType
+export type mainUsersACType = followACType
     | unfollowACType
     | setUsersACType
     | setCurrentPageACType
@@ -127,6 +127,7 @@ export const setToggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FE
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(setToggleIsFetching(true))
+         dispatch(setCurrentPage(currentPage))
 
         usersAPI.getUsers(currentPage, pageSize).then(data => {
             dispatch(setToggleIsFetching(false))

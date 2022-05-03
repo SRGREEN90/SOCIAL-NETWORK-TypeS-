@@ -1,7 +1,8 @@
 import {profileAPI, usersAPI} from "../../api/Api";
 import {Dispatch} from "redux";
+import { setToggleIsFetching } from "./users-reducer";
 
-export const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
+
 export const ADD_POST = 'ADD_POST'
 export const SET_USER_PROFILE = 'SET_USER_PROFILE'
 export const SET_STATUS = 'SET_STATUS'
@@ -12,7 +13,6 @@ let initialState = {
         {id: 2, post: 'It is my first post!', likesKount: 50},
         {id: 3, post: 'Im so happy!', likesKount: 70},
     ] as Array<PostObjectPropsType>,
-    newPostText: '' as string,
     profile: {} as ProfileType,
     status: ''
 }
@@ -54,17 +54,10 @@ const profileReducer = (state = initialState, action: mainPostType): profileInit
     switch (action.type) {
 
         case ADD_POST:
-            let newPost = {id: 4, post: state.newPostText, likesKount: 12}
+            let newPost = {id: 4, post: action.newPostText, likesKount: 12}
             return {
                 ...state,
-                newPostText: '',
                 posts: [...state.posts, newPost]
-            }
-
-        case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newLetter
             }
             case SET_STATUS:
                 return {
@@ -72,10 +65,6 @@ const profileReducer = (state = initialState, action: mainPostType): profileInit
                 status: action.status
                }
         case SET_USER_PROFILE :
-            // return {
-            //     ...state,
-            //     userId: action.userId
-            // }
             return {
                 ...state,
                 profile: {
@@ -87,24 +76,26 @@ const profileReducer = (state = initialState, action: mainPostType): profileInit
             return state
     }
 }
-
-type mainPostType = addPostActionCreatorType | updateNewPostTextActionCreatorType | setUserProfileType | setStatusActionCreatorType
+//=====================================ActionTypes=================================================
+export type mainPostType = addPostActionCreatorType | setUserProfileType | setStatusActionCreatorType
 
 type addPostActionCreatorType = ReturnType<typeof addPostActionCreator>
-type updateNewPostTextActionCreatorType = ReturnType<typeof updateNewPostTextActionCreator>
 type setUserProfileType = ReturnType<typeof setUserProfile>
 type setStatusActionCreatorType = ReturnType<typeof setStatusActionCreator>
 
-export const addPostActionCreator = () => ({type: ADD_POST} as const)
-export const updateNewPostTextActionCreator = (newLetter: string) => ({type: UPDATE_NEW_POST_TEXT, newLetter} as const)
+//=====================================ActionCreators=================================================
+export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText} as const)
 export const setUserProfile = (data: any) => ({type: SET_USER_PROFILE, data} as const)
 export const setStatusActionCreator = (status: string) => ({type: SET_STATUS, status} as const)
 
+//=====================================ThunkCreators=================================================
+
 export const getUsersProfileThunkCreator = (userId: number) => {
     return (dispatch: Dispatch) => {
+        //dispatch(setToggleIsFetching(true))
         usersAPI.getUsersProfile(userId)
             .then(data => {
-                //  this.props.setToggleIsFetching(false)
+                //dispatch(setToggleIsFetching(false))
                 dispatch(setUserProfile(data))
             })
     }
@@ -131,13 +122,3 @@ export const updateUserStatusThunkCreator = (status: string) => {
             })
     }
 }
-
-
-// type addPostActionCreatorType = {
-//     type: typeof ADD_POST
-//     // newPostText: string
-// }
-// type updateNewPostTextActionCreatorType = {
-//     type: typeof UPDATE_NEW_POST_TEXT
-//     newLetter: string
-// }

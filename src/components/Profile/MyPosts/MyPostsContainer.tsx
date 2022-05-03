@@ -1,9 +1,9 @@
 import React from 'react';
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../Redux/profile-reducer";
+import {addPostActionCreator} from "../../Redux/profile-reducer";
 import MyPosts from "./MyPosts";
-import {AppDispatch, ReduxStateType, ReduxStoreType} from "../../Redux/redux-store";
+import {ReduxStateType} from "../../Redux/redux-store";
 import {connect} from "react-redux";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../Redux/dialogs-reducer";
+
 import {Dispatch} from "redux";
 
 //
@@ -32,17 +32,13 @@ import {Dispatch} from "redux";
 
 const mapStateToProps = (state: ReduxStateType) => {
     return {
-        newPostText: state.profilePage.newPostText,
         posts: state.profilePage.posts
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        onPostChangeContainer: ( newLetter?: string) => {
-            dispatch(updateNewPostTextActionCreator(newLetter || ''))
-        },
-        addPostContainer: () => {
-            dispatch(addPostActionCreator())
+        addPost: (newPostText: string) => {
+            dispatch(addPostActionCreator(newPostText))
         }
     }
 }
