@@ -17,7 +17,7 @@ import {initializeAppTC} from "./components/Redux/app-reducer";
 import {ReduxStateType} from "./components/Redux/redux-store";
 import {Preloader} from "./preloader/Preloader";
 
-//сделано 81 выпусков
+//сделано 87 выпусков
 
 export type ProfilePropsType = mapStateToPropsType & mapDispatchToPropsType
 

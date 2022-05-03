@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {Field, Form, InjectedFormProps, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/Validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
 
@@ -16,25 +16,25 @@ type PostObjectPropsType = {
     likesKount: number
 }
 
-const MyPosts = (props: PostArrayPropsType) => {
+const MyPosts = React.memo((props: PostArrayPropsType) => {
 
     let postsElements = props.posts.map((p: PostObjectPropsType) => <Post key={p.id} post={p.post} likesKount={p.likesKount}/>)
-  //  let newPostElement = React.createRef<HTMLTextAreaElement>()
+    //let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     let onAddPost = (values: any) => {
-       props.addPost(values.newPostText)
+        props.addPost(values.newPostText)
     }
 
     return <div className={s.postBlock}>
         <h3>My Posts</h3>
 
-       <AddNewPostFormRedux onSubmit={onAddPost}/>
+        <AddNewPostFormRedux onSubmit={onAddPost}/>
 
         <div className={s.posts}>
             {postsElements}
         </div>
     </div>
-}
+})
 
 type AddNewPostFormType = {
     newPostText: string
