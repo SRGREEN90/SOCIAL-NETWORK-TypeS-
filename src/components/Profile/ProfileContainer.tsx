@@ -25,17 +25,19 @@ export type UrlParams = {
 class ProfileContainer extends React.Component<ProfilePropsType & UrlParams> {
 
     componentDidMount() {
+        console.log(this.props)
         let userId = this.props.params.params.userId
         if (!userId) {
-
             if (this.props.authorizedUserId) {
 
                 userId = this.props.authorizedUserId
+
                //  if (!userId) {
                //    this.props.params.history.push('/login')
                //  }
             }
         }
+
         this.props.getUsersProfileThunkCreator(userId)
         this.props.getUserStatusThunkCreator(userId)
     }

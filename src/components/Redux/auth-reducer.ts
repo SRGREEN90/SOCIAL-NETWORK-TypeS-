@@ -24,6 +24,7 @@ const authReducer = (state: initialStateType = initialState, action: mainAuthUse
 
     switch (action.type) {
         case SET_USER_DATA:
+
             return {
                 ...state,
                 ...action.payload
@@ -36,10 +37,10 @@ const authReducer = (state: initialStateType = initialState, action: mainAuthUse
 export type mainAuthUserDataType = setAuthUserDataACType
 type setAuthUserDataACType = ReturnType<typeof setAuthUserDataAC>
 
-export const setAuthUserDataAC = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => (
+export const setAuthUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => (
     {
         type: 'SET_USER_DATA',
-        payload: {id, email, login, isAuth}
+        payload: {userId, email, login, isAuth}
     } as const)
 
 export const getAuthUserDataThunkCreator = () => (dispatch: Dispatch) => {

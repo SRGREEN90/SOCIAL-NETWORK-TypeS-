@@ -3,8 +3,6 @@ import pngHeader from '../../../Images/pngHeader.png';
 import s from './ProfileInfo.module.css'
 import {ProfileType} from "../../Redux/profile-reducer";
 import {Preloader} from "../../../preloader/Preloader";
-import login from "../../Login/Login";
-import ProfileStatus from './ProfileStatus';
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 type ProfileInfoType = {
@@ -16,6 +14,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
     if(!props.profile) {
         return <Preloader/>
     }
+    console.log(props.profile.photos?.large)
     return <div>
         <div className={s.prof}>
             <div >
@@ -24,9 +23,8 @@ const ProfileInfo = (props: ProfileInfoType) => {
         </div>
         <div className={s.description}>
             <div className={s.ava}>
-
                 {
-                    <img src={props.profile.photos?.large}/>
+                    <img src={props.profile.photos?.large ? props.profile.photos.large : 'https://miro.medium.com/fit/c/1360/1360/2*S4BvCsc_o_KwFCx-gmVTlg.png' }/>
                 }
                  <ProfileStatusWithHooks status={props.status}
                                 updateUserStatusThunkCreator={props.updateUserStatusThunkCreator}

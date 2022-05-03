@@ -16,7 +16,7 @@ let initialState = {
     profile: {} as ProfileType,
     status: ''
 }
-type PostObjectPropsType = {
+export type PostObjectPropsType = {
     id: number
     post: string
     likesKount: number
